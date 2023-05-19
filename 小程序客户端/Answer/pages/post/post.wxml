@@ -1,0 +1,36 @@
+<view class="add-page">
+  <form bindsubmit="submitForm">
+    <view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">{{TopTips}}</view>
+    <view class="mod-a">
+      <view class="mod t-name">
+        <text class="key">标题</text>
+        <input name="title" class="input" maxlength="100" placeholder="请输入问题标题" value="{{title}}" />
+        <image class="arrow-r" src="/static/images/arrow-r-0.png"></image>
+      </view>
+    </view>
+
+    <view class="mod-a mt20">
+      <view class="mod t-sign-time">
+        <text class="key">问题标签</text>
+        <picker bindchange="bindTypeChange" value="{{typeIndex}}" range="{{types}}">
+          <view class="value" name="types">{{types[typeIndex]}}
+            <image class="arrow-r" src="/static/images/arrow-r-0.png"></image>
+          </view>
+        </picker>
+      </view>
+    </view>
+
+    <!-- 活动内容 -->
+    <view class="mod-a mt20">
+      <view class="mod-big my-nick">
+        <textarea name="content" class="weui-textarea" placeholder="请输入问题内容" value="{{content}}" style="height: 7em" bindinput="bindTextAreaChange" maxlength="{{noteMaxLen}}" />
+        <view class="chnumber">{{noteNowLen}}/{{noteMaxLen}}</view>
+      </view>
+    </view>
+    <view class="mod-a mt20">
+      <view class="submit-btn">
+        <button class='button' loading="{{isLoading}}" hover-start-time="200" disabled="{{isdisabled}}" formType="submit">发起</button>
+      </view>
+    </view>
+  </form>
+</view>

@@ -1,0 +1,54 @@
+<!--start.wxml-->
+<view class="container">
+  <view class="remind-box" wx:if="{{remind}}">
+    <image class="remind-img" src="/static/images/more/loading.gif"></image>
+  </view>
+  <block wx:else>
+    <image class="title" src="/static/images/more/title8.png"></image>
+    <view class="content">
+      <view class="hd" style="transform:rotateZ({{angle}}deg);">
+        <image class="logo" src="{{userInfo.avatarUrl}}"></image>
+        <image class="wave" src="/static/images/more/wave.png" mode="aspectFill"></image>
+        <image class="wave wave-bg" src="/static/images/more/wave.png" mode="aspectFill"></image>
+      </view>
+      <view class="bd">
+        <view wx:if="{{needLogin}}">
+          <image class="smalltitle" src="/static/images/more/confirm-word1.png"></image>
+          <button class="confirm-btn" wx:if="{{canIUse}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo" style="display:none;">授权登录不行了</button>
+          <button  class="confirm-btn" bindtap="getUserProfile"> 授权登录 </button>
+        </view>
+        <view wx:else>
+          <view wx:if="{{hasUserInfo}}">
+            <image class="smalltitle" src="/static/images/more/confirm-word1.png"></image>
+
+            <view class="confirm-btn" bindtap='goToIndex'>
+              <text>立即体验</text>
+            </view>
+          </view>
+          <form wx:else bindsubmit="formSubmit">
+            <view class="mod-a">
+              <!-- 活动主题 -->
+              <view class="mod t-name">
+                <text class="key">账户名：</text>
+                <input name="loginName" class="input" maxlength="100" placeholder="请输入账户名" />
+              </view>
+            </view>
+            <view class="mod-a">
+              <!-- 活动主题 -->
+              <view class="mod t-name">
+                <text decode="true" class="key">密&ensp;&ensp;码： </text>
+                <input type="password" name="password" class="input" maxlength="100" placeholder="请输入账户名" />
+              </view>
+            </view>
+            <button class="confirm-btn" formType="submit">
+              <text>绑定账户</text>
+            </button>
+          </form>
+        </view>
+
+
+        <text class="copyright">© 2019 XXXXXX大学SmartCoder团队 倾情出品</text>
+      </view>
+    </view>
+  </block>
+</view>

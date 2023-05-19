@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.module.userLabel.mapper.UserLabelMapper">
+    
+    <resultMap type="UserLabel" id="UserLabelResult">
+        <result property="userId"    column="user_id"    />
+        <result property="dictCode"    column="dict_code"    />
+        <result property="dictLabel"    column="dict_label"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+	
+	<sql id="selectUserLabelVo">
+        select user_id, dict_code, dict_label, create_time from t_user_label
+    </sql>
+	
+    <select id="selectUserLabelList" parameterType="UserLabel" resultMap="UserLabelResult">
+        <include refid="selectUserLabelVo"/>
+        <where>  
+            <if test="userId != null  and userId != 0"> and user_id = #{userId}</if>
+             <if test="dictCode != null and dictCode != 0"> and dict_code = #{dictCode}</if>
+             <if test="dictLabel != null  and dictLabel != '' "> and dict_label = #{dictLabel}</if>
+             <if test="createTime != null "> and create_time = #{createTime}</if>
+         </where>
+    </select>
+    
+    <select id="selectUserLabelById" parameterType="Integer" resultMap="UserLabelResult">
+        <include refid="selectUserLabelVo"/>
+        where user_id = #{userId}
+    </select>
+        
+    <insert id="insertUserLabel" parameterType="UserLabel">
+        insert into t_user_label
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userId != null  ">user_id,</if>
+			<if test="dictCode != null  ">dict_code,</if>
+			<if test="dictLabel != null  and dictLabel != ''  ">dict_label,</if>
+			<if test="createTime != null  ">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userId != null  ">#{userId},</if>
+			<if test="dictCode != null  ">#{dictCode},</if>
+			<if test="dictLabel != null  and dictLabel != ''  ">#{dictLabel},</if>
+			<if test="createTime != null  ">#{createTime},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateUserLabel" parameterType="UserLabel">
+        update t_user_label
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="dictCode != null  ">dict_code = #{dictCode},</if>
+            <if test="dictLabel != null  and dictLabel != ''  ">dict_label = #{dictLabel},</if>
+            <if test="createTime != null  ">create_time = #{createTime},</if>
+        </trim>
+        where user_id = #{userId}
+    </update>
+
+	<delete id="deleteUserLabelById" parameterType="Integer">
+        delete from t_user_label where user_id = #{userId}
+    </delete>
+	
+    <delete id="deleteUserLabelByIds" parameterType="String">
+        delete from t_user_label where user_id in 
+        <foreach item="userId" collection="array" open="(" separator="," close=")">
+            #{userId}
+        </foreach>
+    </delete>
+    
+</mapper>

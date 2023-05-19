@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.module.answer.mapper.AnswerMapper">
+    
+    <resultMap type="Answer" id="AnswerResult">
+        <result property="id"    column="id"    />
+        <result property="problemId"    column="problem_id"    />
+        <result property="title"    column="title"    />
+        <result property="answer"    column="answer"    />
+        <result property="score"    column="score"    />
+        <result property="userId"    column="user_id"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+	
+	<sql id="selectAnswerVo">
+        select id, problem_id, title, answer, score, user_id, create_by, create_time from t_answer
+    </sql>
+	
+    <select id="selectAnswerList" parameterType="Answer" resultMap="AnswerResult">
+        <include refid="selectAnswerVo"/>
+        <where>  
+            <if test="id != null  and id != 0"> and id = #{id}</if>
+             <if test="problemId != null "> and problem_id = #{problemId}</if>
+             <if test="title != null  and title != '' "> and title = #{title}</if>
+             <if test="answer != null  and answer != '' "> and answer = #{answer}</if>
+             <if test="score != null  and score != 0"> and score = #{score}</if>
+             <if test="userId != null  and userId != 0"> and user_id = #{userId}</if>
+             <if test="createBy != null  and createBy != '' "> and create_by = #{createBy}</if>
+             <if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
+				AND date_format(create_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+			</if>
+			<if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
+				AND date_format(create_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+			</if>
+         </where>
+         order by create_time desc
+    </select>
+    
+    <select id="selectAnswerById" parameterType="Integer" resultMap="AnswerResult">
+        <include refid="selectAnswerVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertAnswer" parameterType="Answer">
+        insert into t_answer
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null  ">id,</if>
+			<if test="problemId != null  ">problem_id,</if>
+			<if test="title != null  and title != ''  ">title,</if>
+			<if test="answer != null  and answer != ''  ">answer,</if>
+			<if test="score != null  ">score,</if>
+			<if test="userId != null  ">user_id,</if>
+			<if test="createBy != null  and createBy != ''  ">create_by,</if>
+			<if test="createTime != null  ">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null  ">#{id},</if>
+			<if test="problemId != null  ">#{problemId},</if>
+			<if test="title != null  and title != ''  ">#{title},</if>
+			<if test="answer != null  and answer != ''  ">#{answer},</if>
+			<if test="score != null  ">#{score},</if>
+			<if test="userId != null  ">#{userId},</if>
+			<if test="createBy != null  and createBy != ''  ">#{createBy},</if>
+			<if test="createTime != null  ">#{createTime},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateAnswer" parameterType="Answer">
+        update t_answer
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="answer != null  and answer != ''  ">answer = #{answer},</if>
+            <if test="score != null   and score != 0">score = #{score},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+	<delete id="deleteAnswerById" parameterType="Integer">
+        delete from t_answer where id = #{id}
+    </delete>
+	
+    <delete id="deleteAnswerByIds" parameterType="String">
+        delete from t_answer where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

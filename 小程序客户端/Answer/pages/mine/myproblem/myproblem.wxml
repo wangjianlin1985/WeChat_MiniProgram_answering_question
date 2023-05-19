@@ -1,0 +1,35 @@
+<!-- index.wxml -->
+<view class="mpage {{!ui.tStart? 'withAnimate': ''}}" style="left:{{ui.offsetLeft}}px;width: {{ui.windowWidth}}px;" bindtouchstart="handlerStart" catchtouchmove="handlerMove" bindtouchcancel="handlerCancel" bindtouchend="handlerEnd" bindtap="handlerPageTap">
+  <scroll-view bindscroll="" scroll-y style="height: 100%;">
+    <view class="activities">
+      <view wx:for="{{problemList}}" wx:key="problem"  class="question-wrp">
+        <view class="question-item">
+          <view class="que-title">
+            {{item.title}}
+          </view>
+          <view class="que-follow">
+            <view class="left">
+              <view class="comment">
+                <image src="../../images/comment2.png"></image>
+                <text>{{item.dictLabel}}</text>
+              </view>
+            </view>
+            <view catchtap="checkAnswer" data-problemId="{{item.id}}" class="right">
+              查看回答
+            </view>
+          </view>
+        </view>
+        <view class="que-operate flex-wrp">
+          <view catchtap="toAnswer" data-problemId="{{item.id}}" class="write flex-item">
+            <image src="../../../images/write.png"></image>
+            <text>写回答</text>
+          </view>
+        </view>
+      </view>
+
+
+      
+    </view>
+    <tab-shadow/>
+  </scroll-view>
+</view>

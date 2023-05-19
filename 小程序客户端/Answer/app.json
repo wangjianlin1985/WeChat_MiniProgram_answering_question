@@ -1,0 +1,55 @@
+{
+  "pages": [
+    "pages/start/start",
+    "pages/index/index",
+    "pages/post/post",
+    "pages/mine/mine",
+    "pages/mine/problem/problem",
+    "pages/answer/answer",
+    "pages/mine/myproblem/myproblem",
+    "pages/recommend/recommend"
+  ],
+  "window": {
+    "navigationBarTextStyle": "white",
+    "navigationBarBackgroundColor": "#118fff",
+    "navigationBarTitleText": "在线答疑",
+    "backgroundColor": "#fff"
+  },
+  "tabBar": {
+    "color": "#9BABBA",
+    "selectedColor": "#495056",
+    "borderStyle": "white",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "static/images/tar-home.png",
+        "selectedIconPath": "static/images/tar-home-on.png"
+      },
+      {
+        "pagePath": "pages/post/post",
+        "text": "提问",
+        "iconPath": "static/images/tar-about.png",
+        "selectedIconPath": "static/images/tar-about-on.png"
+      },
+      {
+        "pagePath": "pages/recommend/recommend",
+        "text": "推荐",
+        "iconPath": "static/images/tar-about.png",
+        "selectedIconPath": "static/images/tar-about-on.png"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "个人",
+        "iconPath": "static/images/tab/mine1.png",
+        "selectedIconPath": "static/images/tab/mine.png"
+      }
+    ]
+  },
+  "networkTimeout": {
+    "request": 10000,
+    "downloadFile": 10000
+  },
+  "sitemapLocation": "sitemap.json"
+}

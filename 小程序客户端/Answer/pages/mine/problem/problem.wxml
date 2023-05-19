@@ -1,0 +1,54 @@
+<!--pages/mine/problem/problem.wxml-->
+<view class="container">
+  <view class="question-wrp">
+    <view class="question-item">
+      <view class="que-tag">
+        <text class="tag">{{problem.dictLabel}}</text>
+      </view>
+      <view class="que-title">
+        {{problem.title}}
+      </view>
+      <view class="que-content">
+        {{problem.content}}
+      </view>
+      <view class="que-follow">
+        <view class="left">
+          <view class="comment">
+            <image src="../../../images/comment2.png"></image>
+            <text>{{answerList.length}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="que-operate flex-wrp">
+      <view catchtap="toAnswer"  data-problemId="{{problem.id}}" class="write flex-item">
+        <image src="../../../images/write.png"></image>
+        <text>写回答</text>
+      </view>
+    </view>
+  </view>
+  <view class="answer-feed">
+    <view wx:for="{{answerList}}" wx:key="answer" class="feed-item">
+      <view class="feed-content">
+        <view class="answer-body">
+          <view>
+            <text class="answer-txt">{{item.answer}}</text>
+          </view>
+          <view class="answer-actions">
+            <view class="like dot">
+              <block wx:for="{{stars}}" wx:for-item="star" wx:key="star">
+                <image class="star-image" style="left: {{star*150}}rpx" src="{{item.score > star ?(key-item == 0.5?halfSrc:selectedSrc) : normalSrc}}" data-key="{{star+1}}" data-id="{{item.id}}" bindtap="selectRight">
+                  <view class="item" style="left:75rpx"></view>
+                </image>
+              </block>
+            </view>
+            <view class="time">
+              <a style='display:block;margin-bottom:10rpx;margin-left:20rpx;'>回答者:{{item.createBy}} {{item.createTime}}</a>
+            </view>
+
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
